@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DashDrop - Items</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <header class="navbar">
+        <div class="logo">DashDrop</div>
+
+        <nav>
+            <a href="items.html" class="active">Items</a>
+            <a href="rent.html">Rent</a>
+            <a href="sell.html">Sell</a>
+            <a href="account.html">Account Details</a>
+        </nav>
+
+        <button class="login-btn" onclick="goToItems()">
+            Student Portal
+        </button>
+    </header>
+
+    <!-- Items Page -->
+    <main class="items-page">
+
+        <section class="items-header">
+            <h1>Find What You Need</h1>
+            <p>Buy, borrow, and discover useful items from your campus community.</p>
+        </section>
+
+        <!-- Search -->
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search items by name, category or description...">
+            <button onclick="searchItems()">🔍 Search</button>
+        </div>
+
+        <!-- Categories -->
+        <div class="categories" id="categoryContainer">
+            <button class="active" onclick="filterCategory('all', this)">All</button>
+            <button onclick="filterCategory('electronics', this)">Electronics</button>
+            <button onclick="filterCategory('books', this)">Books</button>
+            <button onclick="filterCategory('furniture', this)">Furniture</button>
+            <button onclick="filterCategory('clothes', this)">Clothes</button>
+            <button onclick="filterCategory('others', this)">Others</button>
+        </div>
+
+        <!-- Item Grid -->
+        <section class="item-grid" id="itemsGrid">
+            <!-- Dynamic items rendered via script.js -->
+        </section>
+
+        <!-- Pagination Controls -->
+        <div id="paginationContainer" style="display: flex; justify-content: center; align-items: center; gap: 12px; margin: 30px auto; max-width: 600px;">
+            <!-- Rendered dynamically by script.js -->
+        </div>
+
+    </main>
+
+    <!-- Item Details Modal Popup -->
+    <div class="modal-overlay" id="itemModal">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div class="modal-icon" id="modalIcon">📦</div>
+            <h3 id="modalTitle">Item Details</h3>
+            <span class="modal-category" id="modalCategory">Category</span>
+            <p id="modalDesc">Description of the item.</p>
+            <div class="modal-footer">
+                <span class="price" id="modalPrice">₹0</span>
+                <div style="display: flex; gap: 8px;">
+                    <button class="contact-btn" id="contactSellerBtn" onclick="contactSeller()" style="background: #4f46e5;">📞 Contact</button>
+                    <button class="contact-btn" id="buyItemBtn" onclick="buyCurrentItem()" style="background: #10b981;">🛍️ Buy Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 DashDrop | Campus Marketplace</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

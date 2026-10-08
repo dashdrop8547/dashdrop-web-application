@@ -1,0 +1,23 @@
+{
+  "name": "dashdrop-backend",
+  "version": "1.0.0",
+  "description": "DashDrop Campus Marketplace RESTful Backend API with SQLite",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test test.js"
+  },
+  "keywords": [
+    "campus-marketplace",
+    "student-rent-sell",
+    "express",
+    "sqlite"
+  ],
+  "author": "Surya",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  }
+}

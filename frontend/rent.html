@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DashDrop - Rent</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <header class="navbar">
+        <div class="logo">DashDrop</div>
+
+        <nav>
+            <a href="items.html">Items</a>
+            <a href="rent.html" class="active">Rent</a>
+            <a href="sell.html">Sell</a>
+            <a href="account.html">Account Details</a>
+        </nav>
+
+        <button class="login-btn" onclick="goToItems()">
+            Student Portal
+        </button>
+    </header>
+
+    <!-- Rent Page -->
+    <main class="items-page">
+
+        <section class="items-header">
+            <h1>Rent What You Need</h1>
+            <p>Rent textbooks, lab gear, tools and electronics from fellow students around campus.</p>
+        </section>
+
+        <!-- Search -->
+        <div class="search-box">
+            <input type="text" id="rentSearch" placeholder="Search items to rent (e.g. calculator, cycle, lab coat)...">
+            <button onclick="searchRentItems()">🔍 Search</button>
+        </div>
+
+        <!-- Categories -->
+        <div class="categories" id="rentCategoryContainer">
+            <button class="active" onclick="filterRentCategory('all', this)">All</button>
+            <button onclick="filterRentCategory('electronics', this)">Electronics</button>
+            <button onclick="filterRentCategory('academic', this)">Academic & Lab</button>
+            <button onclick="filterRentCategory('mobility', this)">Mobility</button>
+            <button onclick="filterRentCategory('music', this)">Music & Hobbies</button>
+        </div>
+
+        <!-- Rent Items Grid -->
+        <section class="item-grid" id="rentGrid">
+
+            <!-- Item 1 -->
+            <div class="item-card" data-category="academic">
+                <div class="item-image">🔢</div>
+                <div class="item-info">
+                    <h2>Scientific Calculator</h2>
+                    <p>Casio fx-991EX ClassWiz, perfect for semester exams and engineering labs.</p>
+                    <div class="item-bottom">
+                        <span class="price">₹30 <small style="font-size: 13px; color: #6b7280; font-weight: normal;">/ day</small></span>
+                        <button onclick="rentItem('Scientific Calculator', 30, 'academic')">Rent Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="item-card" data-category="academic">
+                <div class="item-image">🥼</div>
+                <div class="item-info">
+                    <h2>Chemistry Lab Coat & Goggles</h2>
+                    <p>White cotton lab coat (Size M/L) with scratch-free protective goggles.</p>
+                    <div class="item-bottom">
+                        <span class="price">₹40 <small style="font-size: 13px; color: #6b7280; font-weight: normal;">/ day</small></span>
+                        <button onclick="rentItem('Chemistry Lab Coat &amp; Goggles', 40, 'academic')">Rent Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="item-card" data-category="mobility">
+                <div class="item-image">🚲</div>
+                <div class="item-info">
+                    <h2>Campus Geared Bicycle</h2>
+                    <p>Well-maintained 21-speed bicycle with front basket and lock included.</p>
+                    <div class="item-bottom">
+                        <span class="price">₹80 <small style="font-size: 13px; color: #6b7280; font-weight: normal;">/ day</small></span>
+                        <button onclick="rentItem('Campus Geared Bicycle', 80, 'mobility')">Rent Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="item-card" data-category="electronics">
+                <div class="item-image">📷</div>
+                <div class="item-info">
+                    <h2>Canon DSLR Camera 200D</h2>
+                    <p>Includes 18-55mm lens, 64GB SD card, and neck strap for college events and projects.</p>
+                    <div class="item-bottom">
+                        <span class="price">₹350 <small style="font-size: 13px; color: #6b7280; font-weight: normal;">/ day</small></span>
+                        <button onclick="rentItem('Canon DSLR Camera 200D', 350, 'electronics')">Rent Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 5 -->
+            <div class="item-card" data-category="music">
+                <div class="item-image">🎸</div>
+                <div class="item-info">
+                    <h2>Yamaha Acoustic Guitar</h2>
+                    <p>Great sounding acoustic guitar with bag and pick for hostel jam sessions.</p>
+                    <div class="item-bottom">
+                        <span class="price">₹120 <small style="font-size: 13px; color: #6b7280; font-weight: normal;">/ day</small></span>
+                        <button onclick="rentItem('Yamaha Acoustic Guitar', 120, 'music')">Rent Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 6 -->
+            <div class="item-card" data-category="electronics">
+                <div class="item-image">💡</div>
+                <div class="item-info">
+                    <h2>LED Rechargeable Study Lamp</h2>
+                    <p>3 brightness levels, flexible neck, 6-hour battery backup during power cuts.</p>
+                    <div class="item-bottom">
+                        <span class="price">₹25 <small style="font-size: 13px; color: #6b7280; font-weight: normal;">/ day</small></span>
+                        <button onclick="rentItem('LED Rechargeable Study Lamp', 25, 'electronics')">Rent Now</button>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 DashDrop | Campus Marketplace</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

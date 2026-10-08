@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DashDrop - Sell</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <header class="navbar">
+        <div class="logo">DashDrop</div>
+
+        <nav>
+            <a href="items.html">Items</a>
+            <a href="rent.html">Rent</a>
+            <a href="sell.html" class="active">Sell</a>
+            <a href="account.html">Account Details</a>
+        </nav>
+
+        <button class="login-btn" onclick="goToItems()">
+            Student Portal
+        </button>
+    </header>
+
+    <!-- Sell Page -->
+    <main class="sell-page">
+
+        <section class="sell-header">
+            <h1>Sell Your Item</h1>
+            <p>
+                Have something you don't need anymore?
+                List it on DashDrop and connect with other students on campus.
+            </p>
+        </section>
+
+        <!-- Sell Form -->
+        <section class="sell-form">
+            <h2>Create Your Listing</h2>
+
+            <form id="sellForm" onsubmit="event.preventDefault(); listItem();">
+                <!-- Item Name -->
+                <label for="itemName">Item Name *</label>
+                <input type="text" id="itemName" placeholder="Example: Engineering Graphics Drafter" required>
+
+                <!-- Category -->
+                <label for="category">Category *</label>
+                <select id="category" required>
+                    <option value="">Select Category</option>
+                    <option value="electronics">Electronics</option>
+                    <option value="books">Books</option>
+                    <option value="furniture">Furniture</option>
+                    <option value="clothes">Clothes</option>
+                    <option value="others">Others</option>
+                </select>
+
+                <!-- Price -->
+                <label for="price">Price (₹) *</label>
+                <input type="number" id="price" placeholder="Example: 1500" min="0" required>
+
+                <!-- Condition -->
+                <label for="condition">Condition *</label>
+                <select id="condition" required>
+                    <option value="">Select Condition</option>
+                    <option value="new">New</option>
+                    <option value="like-new">Like New</option>
+                    <option value="good">Good</option>
+                    <option value="fair">Fair</option>
+                </select>
+
+                <!-- Description -->
+                <label for="description">Description</label>
+                <textarea id="description" rows="4" placeholder="Briefly describe the item condition, semester used, or hostel pickup point..."></textarea>
+
+                <!-- Contact -->
+                <label for="contact">Contact Information *</label>
+                <input type="text" id="contact" placeholder="Hostel room number, WhatsApp, or college email" required>
+
+                <!-- Submit Button -->
+                <button type="submit" class="sell-btn" id="submitBtn">
+                    List Item
+                </button>
+
+                <!-- Live Feedback Banner -->
+                <div id="formFeedback" class="form-feedback"></div>
+            </form>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 DashDrop | Campus Marketplace</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

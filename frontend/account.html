@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DashDrop - Account & Administration</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <header class="navbar">
+        <div class="logo">DashDrop</div>
+
+        <nav>
+            <a href="items.html">Items</a>
+            <a href="rent.html">Rent</a>
+            <a href="sell.html">Sell</a>
+            <a href="account.html" class="active">Account Details</a>
+        </nav>
+
+        <button class="login-btn" onclick="openAuthModal('login')">
+            Login
+        </button>
+    </header>
+
+    <!-- Account Page -->
+    <main class="account-page">
+
+        <section class="account-header">
+            <div class="profile-icon">👤</div>
+            <h1 id="userHeading">My Account</h1>
+            <p>Manage your campus profile, active listings, and permissions.</p>
+        </section>
+
+        <!-- Personal Details -->
+        <section class="account-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <h2 style="margin: 0;">Personal Details</h2>
+                <span id="userRoleBadge" class="role-badge role-student">STUDENT</span>
+            </div>
+
+            <div class="detail-row">
+                <span class="detail-label">Name</span>
+                <span class="detail-value" id="profileName">Surya</span>
+            </div>
+
+            <div class="detail-row">
+                <span class="detail-label">Email</span>
+                <span class="detail-value" id="profileEmail">surya@college.edu</span>
+            </div>
+
+            <div class="detail-row">
+                <span class="detail-label">Phone</span>
+                <span class="detail-value" id="profilePhone">+91 98765 43210</span>
+            </div>
+
+            <div class="detail-row">
+                <span class="detail-label">College</span>
+                <span class="detail-value" id="profileCollege">Engineering Campus</span>
+            </div>
+        </section>
+
+        <!-- My Activity -->
+        <section class="account-card">
+            <h2>My Activity</h2>
+
+            <div class="activity-grid">
+                <div class="activity-box">
+                    <h3 id="listedCount">0</h3>
+                    <p>Items Listed</p>
+                </div>
+
+                <div class="activity-box">
+                    <h3 id="rentedCount">0</h3>
+                    <p>Items Rented</p>
+                </div>
+
+                <div class="activity-box">
+                    <h3 id="soldCount">0</h3>
+                    <p>Items Sold</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 📦 PRODUCTS I AM SELLING -->
+        <section class="account-card" id="mySellingSection">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <h2 style="margin: 0;">🏷️ Products I am Selling</h2>
+                <a href="sell.html" style="background: #4f46e5; color: white; text-decoration: none; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 600;">+ List New Item</a>
+            </div>
+            <p style="font-size: 14px; color: #6b7280; margin-bottom: 16px;">
+                Items you have posted on DashDrop for other students to buy.
+            </p>
+
+            <div id="mySellingList" class="my-products-grid">
+                <!-- Rendered dynamically by script.js -->
+                <p style="color: #9ca3af; font-size: 14px;">Loading your listed products...</p>
+            </div>
+        </section>
+
+        <!-- 🛍️ PRODUCTS I BOUGHT FROM DASHDROP -->
+        <section class="account-card" id="myBoughtSection">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <h2 style="margin: 0;">🛍️ Products I Bought</h2>
+                <a href="items.html" style="background: #10b981; color: white; text-decoration: none; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 600;">Explore Marketplace</a>
+            </div>
+            <p style="font-size: 14px; color: #6b7280; margin-bottom: 16px;">
+                Items you purchased through DashDrop from fellow campus students.
+            </p>
+
+            <div id="myBoughtList" class="my-products-grid">
+                <!-- Rendered dynamically by script.js -->
+                <p style="color: #9ca3af; font-size: 14px;">Loading your purchased products...</p>
+            </div>
+        </section>
+
+        <!-- ❤️ MY WISHLIST / SAVED ITEMS -->
+        <section class="account-card" id="myWishlistSection">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <h2 style="margin: 0;">❤️ Saved Items / Wishlist</h2>
+                <a href="items.html" style="background: #ec4899; color: white; text-decoration: none; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 600;">Browse &amp; Save Items</a>
+            </div>
+            <p style="font-size: 14px; color: #6b7280; margin-bottom: 16px;">
+                Products you have bookmarked for later. Click any item to view or buy!
+            </p>
+
+            <div id="myWishlistList" class="my-products-grid">
+                <!-- Rendered dynamically by script.js -->
+                <p style="color: #9ca3af; font-size: 14px;">Loading your saved items...</p>
+            </div>
+        </section>
+
+        <!-- ADMIN EXCLUSIVE MANAGEMENT SECTION (Only visible to admin role) -->
+        <section class="account-card" id="adminSection" style="display: none; border-left: 4px solid #ef4444;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <h2 style="margin: 0; color: #dc2626;">🛡️ Admin Control Panel</h2>
+                <span class="role-badge role-admin">RESTRICTED</span>
+            </div>
+            <p style="font-size: 14px; color: #6b7280; margin-bottom: 20px;">
+                You have Administrative privileges. Monitor platform activity, manage user roles, and review audit logs.
+            </p>
+
+            <div class="activity-grid" style="margin-bottom: 24px;">
+                <div class="activity-box" style="background: #fef2f2; border-color: #fecaca;">
+                    <h3 id="adminTotalUsers" style="color: #dc2626;">0</h3>
+                    <p>Total Users</p>
+                </div>
+                <div class="activity-box" style="background: #fef2f2; border-color: #fecaca;">
+                    <h3 id="adminTotalItems" style="color: #dc2626;">0</h3>
+                    <p>Total Items Listed</p>
+                </div>
+                <div class="activity-box" style="background: #fef2f2; border-color: #fecaca;">
+                    <h3 id="adminTotalRentals" style="color: #dc2626;">0</h3>
+                    <p>Total Rentals</p>
+                </div>
+            </div>
+
+            <h3 style="font-size: 16px; margin-bottom: 10px; color: #1f2937;">👥 Registered Users &amp; Role Assignments</h3>
+            <div style="overflow-x: auto; margin-bottom: 24px;">
+                <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 13px;">
+                    <thead>
+                        <tr style="background: #f3f4f6; color: #4b5563;">
+                            <th style="padding: 8px 10px;">User</th>
+                            <th style="padding: 8px 10px;">Role</th>
+                            <th style="padding: 8px 10px;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminUsersTableBody">
+                        <!-- Rendered dynamically by script.js -->
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 style="font-size: 16px; margin-bottom: 10px; color: #1f2937;">📜 Real-Time Audit Logs</h3>
+            <div id="adminLogsList" style="max-height: 200px; overflow-y: auto; background: #f9fafb; padding: 12px; border-radius: 8px; border: 1px solid #e5e7eb;">
+                <!-- Logs rendered here -->
+            </div>
+        </section>
+
+        <!-- Account Actions -->
+        <section class="account-card">
+            <h2>Account Settings</h2>
+
+            <button class="account-btn" onclick="editProfile()">
+                ✏️ Edit Profile
+            </button>
+
+            <button class="account-btn logout-btn" onclick="logout()">
+                🚪 Logout
+            </button>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 DashDrop | Campus Marketplace</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
