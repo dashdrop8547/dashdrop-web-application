@@ -71,6 +71,18 @@
                     <option value="fair">Fair</option>
                 </select>
 
+                <!-- Hostel / Campus Block -->
+                <label for="hostelBlock">Hostel / Campus Block *</label>
+                <select id="hostelBlock" required>
+                    <option value="">Select Pickup Location</option>
+                    <option value="Block A">🏢 Block A (Boys Hostel)</option>
+                    <option value="Block B">🏢 Block B (Boys Hostel)</option>
+                    <option value="Block C">🏢 Block C (Girls Hostel)</option>
+                    <option value="Block D">🏢 Block D (Girls Hostel)</option>
+                    <option value="Academic / Library">🎓 Main Academic / Library</option>
+                    <option value="Off-Campus">🏡 Off-Campus / Day Scholar</option>
+                </select>
+
                 <!-- Description -->
                 <label for="description">Description</label>
                 <textarea id="description" rows="4" placeholder="Briefly describe the item condition, semester used, or hostel pickup point..."></textarea>
@@ -97,6 +109,8 @@
         <p>© 2026 DashDrop | Campus Marketplace</p>
     </footer>
 
+    <!-- Socket.IO client (served automatically by backend) -->
+    <script src="/socket.io/socket.io.js"></script>
     <script src="script.js"></script>
 </body>
 

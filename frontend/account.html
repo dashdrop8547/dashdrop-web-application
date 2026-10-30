@@ -49,12 +49,12 @@
 
             <div class="detail-row">
                 <span class="detail-label">Email</span>
-                <span class="detail-value" id="profileEmail">surya@college.edu</span>
+                <span class="detail-value" id="profileEmail">suXXXX@college.edu</span>
             </div>
 
             <div class="detail-row">
                 <span class="detail-label">Phone</span>
-                <span class="detail-value" id="profilePhone">+91 98765 43210</span>
+                <span class="detail-value" id="profilePhone">84654XXXXX</span>
             </div>
 
             <div class="detail-row">
@@ -89,7 +89,9 @@
         <section class="account-card" id="mySellingSection">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
                 <h2 style="margin: 0;">🏷️ Products I am Selling</h2>
-                <a href="sell.html" style="background: #4f46e5; color: white; text-decoration: none; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 600;">+ List New Item</a>
+                <a href="sell.html"
+                    style="background: #4f46e5; color: white; text-decoration: none; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 600;">+
+                    List New Item</a>
             </div>
             <p style="font-size: 14px; color: #6b7280; margin-bottom: 16px;">
                 Items you have posted on DashDrop for other students to buy.
@@ -105,7 +107,9 @@
         <section class="account-card" id="myBoughtSection">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
                 <h2 style="margin: 0;">🛍️ Products I Bought</h2>
-                <a href="items.html" style="background: #10b981; color: white; text-decoration: none; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 600;">Explore Marketplace</a>
+                <a href="items.html"
+                    style="background: #10b981; color: white; text-decoration: none; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 600;">Explore
+                    Marketplace</a>
             </div>
             <p style="font-size: 14px; color: #6b7280; margin-bottom: 16px;">
                 Items you purchased through DashDrop from fellow campus students.
@@ -117,11 +121,64 @@
             </div>
         </section>
 
+        <!-- ⏱️ RENTAL RETURN TRACKER & OVERDUE REMINDERS -->
+        <section class="account-card" id="myRentalsTrackerSection">
+            <div
+                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 8px;">
+                <h2 style="margin: 0;">⏱️ Rental Return Tracker &amp; Reminders</h2>
+                <a href="rent.html"
+                    style="background: #0284c7; color: white; text-decoration: none; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 600;">Browse
+                    Rental Items</a>
+            </div>
+
+            <!-- Overdue Reminder Banner (hidden unless there are overdue items) -->
+            <div id="rentalOverdueBanner"
+                style="display: none; background: #fef2f2; border: 1.5px solid #f87171; border-radius: 10px; padding: 14px 16px; margin-bottom: 18px;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="font-size: 24px;">⚠️</span>
+                    <div>
+                        <h4 style="margin: 0; color: #b91c1c; font-size: 14px;">Urgent: Overdue Rental Item(s) Detected!
+                        </h4>
+                        <p id="rentalOverdueBannerText" style="margin: 2px 0 0; color: #7f1d1d; font-size: 13px;">
+                            Please return overdue items to the campus desk or extend your rental to avoid penalties.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Return Tracker Metrics -->
+            <div class="activity-grid" style="margin-bottom: 20px;">
+                <div class="activity-box" style="background: #f0f9ff; border-color: #bae6fd;">
+                    <h3 id="trackerActiveCount" style="color: #0284c7;">0</h3>
+                    <p>🟢 Active Rentals</p>
+                </div>
+                <div class="activity-box" style="background: #fef2f2; border-color: #fecaca;">
+                    <h3 id="trackerOverdueCount" style="color: #dc2626;">0</h3>
+                    <p>⚠️ Overdue Items</p>
+                </div>
+                <div class="activity-box" style="background: #f0fdf4; border-color: #bbf7d0;">
+                    <h3 id="trackerReturnedCount" style="color: #16a34a;">0</h3>
+                    <p>✅ Returned</p>
+                </div>
+            </div>
+
+            <p style="font-size: 14px; color: #6b7280; margin-bottom: 16px;">
+                Track return deadlines, live overdue status, and return or extend your rented items with one click.
+            </p>
+
+            <div id="myRentalsTrackerList" class="my-products-grid">
+                <!-- Rendered dynamically by script.js -->
+                <p style="color: #9ca3af; font-size: 14px;">Loading your rented items...</p>
+            </div>
+        </section>
+
         <!-- ❤️ MY WISHLIST / SAVED ITEMS -->
         <section class="account-card" id="myWishlistSection">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
                 <h2 style="margin: 0;">❤️ Saved Items / Wishlist</h2>
-                <a href="items.html" style="background: #ec4899; color: white; text-decoration: none; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 600;">Browse &amp; Save Items</a>
+                <a href="items.html"
+                    style="background: #ec4899; color: white; text-decoration: none; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 600;">Browse
+                    &amp; Save Items</a>
             </div>
             <p style="font-size: 14px; color: #6b7280; margin-bottom: 16px;">
                 Products you have bookmarked for later. Click any item to view or buy!
@@ -133,50 +190,105 @@
             </div>
         </section>
 
-        <!-- ADMIN EXCLUSIVE MANAGEMENT SECTION (Only visible to admin role) -->
-        <section class="account-card" id="adminSection" style="display: none; border-left: 4px solid #ef4444;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-                <h2 style="margin: 0; color: #dc2626;">🛡️ Admin Control Panel</h2>
-                <span class="role-badge role-admin">RESTRICTED</span>
+        <!-- ADMIN EXCLUSIVE MANAGEMENT SECTION: Block Names & Seller Moderation -->
+        <section class="account-card" id="adminSection" style="display: none; border-left: 4px solid #4f46e5;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <h2 style="margin: 0; color: #1e1b4b; display: flex; align-items: center; gap: 8px;">
+                    🛡️ Campus Administration
+                </h2>
+                <span class="role-badge role-admin">ADMINISTRATOR</span>
             </div>
-            <p style="font-size: 14px; color: #6b7280; margin-bottom: 20px;">
-                You have Administrative privileges. Monitor platform activity, manage user roles, and review audit logs.
+            <p style="font-size: 13.5px; color: #6b7280; margin-bottom: 24px;">
+                Manage hostel and campus location block names, and moderate student sellers across DashDrop.
             </p>
 
-            <div class="activity-grid" style="margin-bottom: 24px;">
-                <div class="activity-box" style="background: #fef2f2; border-color: #fecaca;">
-                    <h3 id="adminTotalUsers" style="color: #dc2626;">0</h3>
-                    <p>Total Users</p>
+            <!-- 1. Campus Hostel / Block Names Manager -->
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin-bottom: 24px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+                    <div>
+                        <h3 style="margin: 0; font-size: 16px; color: #1e1b4b; display: flex; align-items: center; gap: 6px;">
+                            🏢 Campus Hostel &amp; Location Blocks
+                        </h3>
+                        <p style="margin: 2px 0 0; font-size: 12px; color: #64748b;">
+                            Rename blocks or add new campus locations. Renaming cascades across all active listings automatically.
+                        </p>
+                    </div>
                 </div>
-                <div class="activity-box" style="background: #fef2f2; border-color: #fecaca;">
-                    <h3 id="adminTotalItems" style="color: #dc2626;">0</h3>
-                    <p>Total Items Listed</p>
-                </div>
-                <div class="activity-box" style="background: #fef2f2; border-color: #fecaca;">
-                    <h3 id="adminTotalRentals" style="color: #dc2626;">0</h3>
-                    <p>Total Rentals</p>
+
+                <!-- Add New Block Form -->
+                <form id="addBlockForm" onsubmit="adminAddBlock(event)" style="display: flex; gap: 8px; margin-bottom: 16px; max-width: 480px;">
+                    <input type="text" id="newBlockNameInput" placeholder="New block name (e.g. Ramanujan Hall, Block F)" required
+                        style="flex: 1; padding: 8px 12px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 13px; outline: none;">
+                    <button type="submit" class="account-btn" style="padding: 8px 16px; font-size: 13px; background: #4f46e5; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">
+                        ➕ Add Block
+                    </button>
+                </form>
+
+                <!-- Blocks Table -->
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                        <thead>
+                            <tr style="background: #ede9fe; color: #3730a3;">
+                                <th style="padding: 10px 14px;">Block Name</th>
+                                <th style="padding: 10px 14px;">Active Listings</th>
+                                <th style="padding: 10px 14px; text-align: right;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminBlocksTableBody">
+                            <tr><td colspan="3" style="padding: 16px; text-align: center; color: #94a3b8;">Loading campus blocks...</td></tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
-            <h3 style="font-size: 16px; margin-bottom: 10px; color: #1f2937;">👥 Registered Users &amp; Role Assignments</h3>
-            <div style="overflow-x: auto; margin-bottom: 24px;">
-                <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 13px;">
-                    <thead>
-                        <tr style="background: #f3f4f6; color: #4b5563;">
-                            <th style="padding: 8px 10px;">User</th>
-                            <th style="padding: 8px 10px;">Role</th>
-                            <th style="padding: 8px 10px;">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="adminUsersTableBody">
-                        <!-- Rendered dynamically by script.js -->
-                    </tbody>
-                </table>
-            </div>
+            <!-- 2. Seller Moderation (Block / Unblock Sellers) -->
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+                    <div>
+                        <h3 style="margin: 0; font-size: 16px; color: #1e1b4b; display: flex; align-items: center; gap: 6px;">
+                            🚫 Seller Moderation &amp; Restrictions
+                        </h3>
+                        <p style="margin: 2px 0 0; font-size: 12px; color: #64748b;">
+                            Block fraudulent or rule-breaking sellers. Blocked sellers cannot post new items and their listings are hidden.
+                        </p>
+                    </div>
+                </div>
 
-            <h3 style="font-size: 16px; margin-bottom: 10px; color: #1f2937;">📜 Real-Time Audit Logs</h3>
-            <div id="adminLogsList" style="max-height: 200px; overflow-y: auto; background: #f9fafb; padding: 12px; border-radius: 8px; border: 1px solid #e5e7eb;">
-                <!-- Logs rendered here -->
+                <!-- Sellers Table -->
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                        <thead>
+                            <tr style="background: #fee2e2; color: #991b1b;">
+                                <th style="padding: 10px 14px;">Seller</th>
+                                <th style="padding: 10px 14px;">College / Contact</th>
+                                <th style="padding: 10px 14px;">Listings</th>
+                                <th style="padding: 10px 14px;">Status</th>
+                                <th style="padding: 10px 14px; text-align: right;">Moderation Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminSellersTableBody">
+                            <tr><td colspan="5" style="padding: 16px; text-align: center; color: #94a3b8;">Loading sellers...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 💬 MY CHATS & INQUIRIES -->
+        <section class="account-card" id="myChatsSection">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <h2 style="margin: 0;">💬 Messages &amp; Inquiries</h2>
+                <span
+                    style="font-size: 12px; background: #f3e8ff; color: #7e22ce; padding: 4px 10px; border-radius: 12px; font-weight: 600;">⚡
+                    Real-Time Socket.IO</span>
+            </div>
+            <p style="font-size: 14px; color: #6b7280; margin-bottom: 16px;">
+                Direct buyer-seller messaging for questions, negotiation, and campus meeting coordination.
+            </p>
+
+            <div id="myConversationsList" class="my-products-grid">
+                <!-- Rendered dynamically by script.js -->
+                <p style="color: #9ca3af; font-size: 14px;">Loading your conversations...</p>
             </div>
         </section>
 
@@ -195,11 +307,41 @@
 
     </main>
 
+    <!-- Account Page Chat Modal -->
+    <div class="modal-overlay" id="accountChatModal">
+        <div class="modal-card" style="max-width: 600px; width: 95%;">
+            <button class="modal-close" onclick="closeAccountChatModal()">&times;</button>
+            <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+                <div id="accChatIcon" style="font-size:32px;">📦</div>
+                <div>
+                    <h3 id="accChatTitle" style="margin:0; font-size:16px;">Chat</h3>
+                    <p id="accChatSubtitle" style="margin:0; font-size:12px; color:#6b7280;"></p>
+                </div>
+            </div>
+
+            <div class="chat-panel" style="margin-top:0;">
+                <div class="chat-panel-header">
+                    <span id="accChatHeaderTitle">💬 Real-Time Chat</span>
+                    <span id="accChatTypingIndicator" class="chat-typing"></span>
+                </div>
+                <div id="accChatMessages" class="chat-messages" style="min-height: 200px; max-height: 300px;">
+                </div>
+                <div class="chat-input-row">
+                    <input type="text" id="accChatInput" class="chat-input" placeholder="Type a message…"
+                        maxlength="500" onkeydown="handleAccChatKey(event)" oninput="emitAccTyping()">
+                    <button class="chat-send-btn" onclick="sendAccChatMessage()">Send ➤</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer>
         <p>© 2026 DashDrop | Campus Marketplace</p>
     </footer>
 
+    <!-- Socket.IO client (served automatically by backend) -->
+    <script src="/socket.io/socket.io.js"></script>
     <script src="script.js"></script>
 </body>
 

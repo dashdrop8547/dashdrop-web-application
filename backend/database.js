@@ -113,7 +113,38 @@ function initDatabase() {
         );
     `);
 
-    // Migration helper: If items table previously lacked owner_id or file_url, alter table safely
+    // 7. Chat Messages — buyer-seller real-time chat per item
+    //    room = "item_<item_id>_buyer_<buyer_id>"  (seller is item.owner_id)
+    db.exec(`
+        CREATE TABLE IF NOT EXISTS chat_messages (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            room TEXT NOT NULL,
+            item_id INTEGER,
+            buyer_id INTEGER,
+            sender_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+            sender_name TEXT NOT NULL,
+            message TEXT NOT NULL,
+            sent_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        );
+    `);
+    db.exec(`CREATE INDEX IF NOT EXISTS idx_chat_room ON chat_messages(room);`);
+
+    // 8. Notifications Table — Real-time in-app alerts (chat, rentals, purchases, system)
+    db.exec(`
+        CREATE TABLE IF NOT EXISTS notifications (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+            type TEXT NOT NULL,
+            title TEXT NOT NULL,
+            message TEXT NOT NULL,
+            link TEXT,
+            is_read INTEGER DEFAULT 0,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        );
+    `);
+    db.exec(`CREATE INDEX IF NOT EXISTS idx_notifications_user_read ON notifications(user_id, is_read);`);
+
+    // Migration helper: If tables previously lacked columns, alter table safely
     try {
         db.exec(`ALTER TABLE items ADD COLUMN owner_id INTEGER;`);
     } catch (_) { /* Column already exists */ }
@@ -123,6 +154,74 @@ function initDatabase() {
     try {
         db.exec(`ALTER TABLE rentals ADD COLUMN renter_id INTEGER;`);
     } catch (_) { /* Column already exists */ }
+    try {
+        db.exec(`ALTER TABLE rentals ADD COLUMN due_date DATETIME;`);
+    } catch (_) { /* Column already exists */ }
+    try {
+        db.exec(`ALTER TABLE rentals ADD COLUMN returned_at DATETIME;`);
+    } catch (_) { /* Column already exists */ }
+    try {
+        db.exec(`ALTER TABLE rentals ADD COLUMN late_fee REAL DEFAULT 0;`);
+    } catch (_) { /* Column already exists */ }
+    try {
+        db.exec(`ALTER TABLE rentals ADD COLUMN reminded_at DATETIME;`);
+    } catch (_) { /* Column already exists */ }
+    try {
+        db.exec(`UPDATE rentals SET due_date = DATETIME(rented_at, '+' || days || ' days') WHERE due_date IS NULL;`);
+    } catch (_) { /* Column already exists */ }
+    try {
+        db.exec(`ALTER TABLE chat_messages ADD COLUMN item_id INTEGER;`);
+    } catch (_) { /* Column already exists */ }
+    try {
+        db.exec(`ALTER TABLE chat_messages ADD COLUMN buyer_id INTEGER;`);
+    } catch (_) { /* Column already exists */ }
+    try {
+        db.exec(`ALTER TABLE items ADD COLUMN hostel_block TEXT DEFAULT 'Block A';`);
+    } catch (_) { /* Column already exists */ }
+    try {
+        db.exec(`ALTER TABLE users ADD COLUMN is_blocked INTEGER DEFAULT 0;`);
+    } catch (_) { /* Column already exists */ }
+
+    // 9. Campus Blocks Table (Hostel & Campus Locations Management)
+    db.exec(`
+        CREATE TABLE IF NOT EXISTS campus_blocks (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT UNIQUE NOT NULL,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        );
+    `);
+
+    // Seed default campus blocks if empty
+    try {
+        const count = db.prepare('SELECT COUNT(*) as count FROM campus_blocks').get().count;
+        if (count === 0) {
+            const defaultBlocks = [
+                'Block A',
+                'Block B',
+                'Block C',
+                'Block D',
+                'Block E',
+                'Academic / Library',
+                'Off-Campus / PG'
+            ];
+            const ins = db.prepare('INSERT OR IGNORE INTO campus_blocks (name) VALUES (?)');
+            for (const b of defaultBlocks) {
+                ins.run(b);
+            }
+        }
+    } catch (_) {}
+    try {
+        db.exec(`UPDATE items SET hostel_block = 'Block B' WHERE contact LIKE '%Block B%' OR name LIKE '%Dell%';`);
+        db.exec(`UPDATE items SET hostel_block = 'Block A' WHERE contact LIKE '%Block A%' OR name LIKE '%Engineering Books%';`);
+        db.exec(`UPDATE items SET hostel_block = 'Block C' WHERE contact LIKE '%Block C%' OR name LIKE '%Desk Chair%';`);
+        db.exec(`UPDATE items SET hostel_block = 'Academic / Library' WHERE contact LIKE '%Library%' OR contact LIKE '%Mech%' OR name LIKE '%Headphones%' OR name LIKE '%Drafter%';`);
+        db.exec(`UPDATE items SET hostel_block = 'Block D' WHERE contact LIKE '%WhatsApp%' OR hostel_block IS NULL;`);
+    } catch (_) { /* Backfill hostel_block */ }
+
+    // Ensure all items have a valid owner_id
+    try {
+        db.exec(`UPDATE items SET owner_id = 2 WHERE owner_id IS NULL;`);
+    } catch (_) {}
 
     // Seed Default Users (Admin & Student)
     const userCountStmt = db.prepare('SELECT COUNT(*) as count FROM users');
@@ -231,6 +330,87 @@ function initDatabase() {
         for (const item of defaultItems) {
             seedStmt.run(2, item.name, item.category, item.price, item.condition, item.description, item.contact, item.icon);
         }
+    }
+
+    // Seed Sample Rentals if table is empty (1 active, 1 overdue to showcase tracker)
+    const rentalsCountStmt = db.prepare('SELECT COUNT(*) as count FROM rentals');
+    const rentalsCount = rentalsCountStmt.get().count;
+
+    if (rentalsCount === 0) {
+        const insertRental = db.prepare(`
+            INSERT INTO rentals (renter_id, item_name, category, daily_price, days, total_price, student_name, status, rented_at, due_date)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `);
+
+        // Sample 1: Active rental due in 3 days
+        insertRental.run(
+            2,
+            'Campus Geared Bicycle',
+            'mobility',
+            80,
+            4,
+            320,
+            'Surya (Student)',
+            'active',
+            new Date(Date.now() - 1 * 86400000).toISOString(),
+            new Date(Date.now() + 3 * 86400000).toISOString()
+        );
+
+        // Sample 2: Overdue rental (rented 5 days ago for 3 days -> 2 days overdue)
+        insertRental.run(
+            2,
+            'Scientific Calculator (Casio fx-991EX)',
+            'academic',
+            30,
+            3,
+            90,
+            'Surya (Student)',
+            'active',
+            new Date(Date.now() - 5 * 86400000).toISOString(),
+            new Date(Date.now() - 2 * 86400000).toISOString()
+        );
+    }
+
+    // Seed Initial Notifications if table is empty
+    const notifCountStmt = db.prepare('SELECT COUNT(*) as count FROM notifications');
+    if (notifCountStmt.get().count === 0) {
+        const insertNotif = db.prepare(`
+            INSERT INTO notifications (user_id, type, title, message, link, is_read, created_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+        `);
+
+        // Notification 1 for Surya: Rental Overdue reminder
+        insertNotif.run(
+            2,
+            'rental_overdue',
+            '⚠️ Rental Return Overdue',
+            'Your rental for "Scientific Calculator (Casio fx-991EX)" is 2 days overdue. Please return or extend.',
+            'account.html#myRentalsTrackerSection',
+            0,
+            new Date(Date.now() - 2 * 3600000).toISOString()
+        );
+
+        // Notification 2 for Surya: Welcome & campus marketplace update
+        insertNotif.run(
+            2,
+            'system',
+            '🎉 Welcome to DashDrop',
+            'Explore campus listings, filter by hostel blocks, or list items you no longer need.',
+            'items.html',
+            0,
+            new Date(Date.now() - 24 * 3600000).toISOString()
+        );
+
+        // Notification 1 for Admin: Moderation summary
+        insertNotif.run(
+            1,
+            'system',
+            '🛡️ Admin Dashboard Ready',
+            'Platform audit logs and user role management are active.',
+            'account.html#adminSection',
+            0,
+            new Date().toISOString()
+        );
     }
 
     console.log('✅ SQLite Database initialized at:', dbPath);

@@ -49,6 +49,10 @@
             <button onclick="filterRentCategory('music', this)">Music & Hobbies</button>
         </div>
 
+        <!-- Return Tracker Alert Banner -->
+        <div id="rentPageTrackerBanner" style="display:none; max-width:1200px; margin: 0 auto 20px; padding: 12px 18px; border-radius: 10px; font-size: 14px;">
+        </div>
+
         <!-- Rent Items Grid -->
         <section class="item-grid" id="rentGrid">
 
@@ -139,6 +143,8 @@
         <p>© 2026 DashDrop | Campus Marketplace</p>
     </footer>
 
+    <!-- Socket.IO client (served automatically by backend) -->
+    <script src="/socket.io/socket.io.js"></script>
     <script src="script.js"></script>
 </body>
 

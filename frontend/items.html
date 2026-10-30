@@ -50,6 +50,22 @@
             <button onclick="filterCategory('others', this)">Others</button>
         </div>
 
+        <!-- Hostel / Block Location Filter Bar -->
+        <div class="block-filter-wrapper" style="margin: 0 auto 24px; max-width: 1200px; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;">
+            <span style="font-size: 13px; font-weight: 600; color: #4b5563; display: flex; align-items: center; gap: 4px;">
+                📍 Campus Location:
+            </span>
+            <div id="blockFilterContainer" class="block-filters" style="display: flex; gap: 6px; flex-wrap: wrap;">
+                <button class="block-filter-btn active" onclick="filterHostelBlock('all', this)">🏠 All Blocks</button>
+                <button class="block-filter-btn" onclick="filterHostelBlock('Block A', this)">🏢 Block A</button>
+                <button class="block-filter-btn" onclick="filterHostelBlock('Block B', this)">🏢 Block B</button>
+                <button class="block-filter-btn" onclick="filterHostelBlock('Block C', this)">🏢 Block C</button>
+                <button class="block-filter-btn" onclick="filterHostelBlock('Block D', this)">🏢 Block D</button>
+                <button class="block-filter-btn" onclick="filterHostelBlock('Academic / Library', this)">🎓 Academic / Library</button>
+                <button class="block-filter-btn" onclick="filterHostelBlock('Off-Campus', this)">🏡 Off-Campus</button>
+            </div>
+        </div>
+
         <!-- Item Grid -->
         <section class="item-grid" id="itemsGrid">
             <!-- Dynamic items rendered via script.js -->
@@ -64,7 +80,7 @@
 
     <!-- Item Details Modal Popup -->
     <div class="modal-overlay" id="itemModal">
-        <div class="modal-card">
+        <div class="modal-card" style="max-width:680px; width:95%;">
             <button class="modal-close" onclick="closeModal()">&times;</button>
             <div class="modal-icon" id="modalIcon">📦</div>
             <h3 id="modalTitle">Item Details</h3>
@@ -72,10 +88,37 @@
             <p id="modalDesc">Description of the item.</p>
             <div class="modal-footer">
                 <span class="price" id="modalPrice">₹0</span>
-                <div style="display: flex; gap: 8px;">
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
                     <button class="contact-btn" id="contactSellerBtn" onclick="contactSeller()" style="background: #4f46e5;">📞 Contact</button>
                     <button class="contact-btn" id="buyItemBtn" onclick="buyCurrentItem()" style="background: #10b981;">🛍️ Buy Now</button>
+                    <button class="contact-btn" id="openChatBtn" onclick="toggleChatPanel()" style="background: #ec4899;">💬 Chat with Seller</button>
                 </div>
+            </div>
+
+            <!-- ── INLINE CHAT PANEL ── -->
+            <div id="chatPanel" class="chat-panel" style="display:none;">
+                <div class="chat-panel-header">
+                    <span>💬 Chat with Seller</span>
+                    <span id="chatTypingIndicator" class="chat-typing"></span>
+                </div>
+                <div id="chatMessages" class="chat-messages">
+                    <!-- messages injected here -->
+                </div>
+                <div class="chat-input-row">
+                    <input
+                        type="text"
+                        id="chatInput"
+                        class="chat-input"
+                        placeholder="Type a message…"
+                        maxlength="500"
+                        onkeydown="handleChatKey(event)"
+                        oninput="emitTyping()"
+                    >
+                    <button class="chat-send-btn" onclick="sendChatMessage()">Send ➤</button>
+                </div>
+                <p id="chatAuthNote" style="display:none; color:#9ca3af; font-size:12px; text-align:center; margin:8px 0 0;">
+                    <a href="#" onclick="openAuthModal('login'); return false;" style="color:#ec4899; font-weight:600;">Log in</a> to chat with the seller.
+                </p>
             </div>
         </div>
     </div>
@@ -85,6 +128,8 @@
         <p>© 2026 DashDrop | Campus Marketplace</p>
     </footer>
 
+    <!-- Socket.IO client (served automatically by the backend) -->
+    <script src="/socket.io/socket.io.js"></script>
     <script src="script.js"></script>
 </body>
 
